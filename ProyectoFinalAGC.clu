@@ -1,0 +1,169 @@
+DefVarsN3();
+
+execModes = ["Manual", "Animation"];
+bodyParts = ["full body","Abdomen", "Head", "Shoulder", "Elbow", "Hands", "Hips", "Knees", "Ankles"];
+
+sideOpts = 
+{
+
+	sides = ["left", "right"];
+	side = Choice("Side", sides, 1);
+	
+	side
+}
+
+currentMode = Choice("Mode", execModes, 1); 
+
+//values for rotations, 
+maxAngle = 2 * Pi;
+minAngle = 0; 
+stepAngle = 0.1; 
+
+if(currentMode == 1)
+{
+	?currentPart = Choice("Body Part", bodyParts, 1);
+	
+	if(currentPart == 1) //FullBody
+	{
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0); 
+		//moveFullBody(rx, ry, rz);
+	}
+	
+	else if(currentPart == 2) //Abdomen
+	{
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		//moveAbs(rx, ry, rz);
+	}
+	
+	else if(currentPart == 3) //Head
+	{
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		//moveHead(rx, ry);
+	}
+	
+	else if(currentPart == 4) //Shoulder
+	{
+		side = sideOpts();
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
+		
+		if(side == 1) //left
+		{
+			//moveLeftShoulder(rx, ry, rz);
+		}
+		else //right
+		{
+			
+			//moveRightShoulder(rx, ry, rz);
+		}
+		
+	}
+	else if(currentPart == 5) //Elbow
+	{
+		side = sideOpts();
+		rot = Slider("Rotation", minAngle, maxAngle, stepAngle, 0);
+
+		
+		if(side == 1) //left
+		{
+			//moveLeftElbow(rot);
+		}
+		else //right
+		{
+			//moveRightElbow(rot);
+		}
+		
+	}
+	else if(currentPart == 6) //Hands
+	{
+		side = sideOpts();
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
+		
+		if(side == 1) //left
+		{
+			//moveLeftHand(rx, ry, rz);
+		}
+		else //right
+		{
+			//moveRightHand(rx, ry, rz);
+		}
+		
+	}
+	else if(currentPart == 7) //Hips
+	{
+		side = sideOpts();
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
+		
+		if(side == 1) //left
+		{
+			//moveLeftHips(rx, ry, rz);
+		}
+		else //right
+		{
+			//moveRightHip(rx, ry, rz);
+		}
+		
+	}
+	else if(currentPart == 8) //Knees
+	{
+		side = sideOpts();
+		rot = Slider("Rot", minAngle, maxAngle, stepAngle, 0);
+		
+		if(side == 1) //left
+		{
+			//moveLeftKnee(rot);
+		}
+		else //right
+		{
+			//moveRigthKnee(rot);
+		}
+		
+	}
+	else if(currentPart == 9) //Ankles
+	{
+		side = sideOpts();
+		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
+		
+		if(side == 1) //left
+		{
+			//moveLeftAnkle(rx, ry, rz);
+		}
+		else //right
+		{
+			//moveRightAnkle(rx, ry, rz);
+		}
+		
+	}
+	
+
+}
+else
+{
+	EnableAnimate(true);
+}
+ 
+scInfo = StartOverlay();
+:White;
+SetImagePos(1, 1, 0);
+SetImageAlign(0, 1);
+SetRenderTextSize(24);
+:GetRenderTextImage("Proyecto Final Algebra Geométrica Conformal");:MWhite;
+SetImagePos(1, 100, 0);
+SetImageAlign(0, 0);
+SetRenderTextSize(15);
+:GetRenderTextImage("Braulio Ivan Solorio Gómez\nMiguel Herrera Padilla\nArturo García Brambila");
+EndOverlay();
+:scInfo;
+
+
