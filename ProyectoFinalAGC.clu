@@ -249,10 +249,10 @@ HandJL = Joint(EJL(2), [HandJLrx,HandJLry,HandJLrz], [-0.1,-0.5,0]);
 :HandJL(3);
 
 //Hips
-HJR = Joint(LLJ(2), [HJRrx,HJRry,HJRrz], [0.3,-0.2,0]);
+HJR = Joint(origin(2), [HJRrx,HJRry,HJRrz], [0.3,-0.2,0]);
 :HJR(3);
 
-HJL = Joint(LLJ(2), [HJLrx,HJLry,HJLrz], [-0.3,-0.2,0]);
+HJL = Joint(origin(2), [HJLrx,HJLry,HJLrz], [-0.3,-0.2,0]);
 :HJL(3);
 
 //Knees
