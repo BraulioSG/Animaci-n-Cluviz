@@ -1,5 +1,5 @@
 DefVarsN3();
-
+DrawFrame(0.5,"axes");
 execModes = ["Manual", "Animation"];
 bodyParts = ["full body","Abdomen", "Head", "Shoulder", "Elbow", "Hands", "Hips", "Knees", "Ankles"];
 
@@ -11,6 +11,70 @@ sideOpts =
 	
 	side
 }
+
+
+Cylinder = 
+{
+	A = _P(1); //Primera entrada (Punto inicial del cilindro)
+ 	B = _P(2); //Segunda entrada (Punto final del cilindro)
+ 	r = _P(3); //Tercera entrada (radio  del cilindro)
+ 
+ 	E = einf^e0; 	
+ 	Ae =  (A^E)*E;
+ 	Be = (B^E)*E;
+ 	Ce = Be - Ae;
+ 	C = Ce + 1/2*Ce^^2*einf + e0;
+ 
+	 DrawCylinder(A,C,r);
+ 	C;
+}
+Joint =
+{
+	:Yellow;
+	reference = _P(1); //motor referencia
+	[Jrx, Jry, Jrz] = _P(2); //arreglo de rotaciones
+	[Jtx, Jty, Jtz] = _P(3); //arreglo de transalciones
+	
+	T = TranslatorN3(Jtx, Jty, Jtz); 
+	M = T*RotorN3(1,0,0, Jrx)*RotorN3(0,1,0,Jry)*RotorN3(0,0,1,Jrz);
+	Mref = reference*M;
+	P = Mref*e0*(~Mref);  
+	
+	S = P - 0.5*(0.1^^2)*einf;
+	
+	[P, Mref, S]
+}
+
+ConnectJoints = 
+{
+	J1 = _P(1);
+	J2 = _P(2);
+	
+	
+	:White;
+
+	::Cylinder(J1(1), J2(1), 0.02);
+}
+//--------------------------VARIABLES-----------------------------
+[orx, ory, orz, otx, oty, otz] = [0,0,0,0,0,0];
+origin = Joint(1,[orx, ory, orz],[otx, oty, otz]);
+[LLJrx, LLJry, LLJrz] = [0,0,0];
+[LNJrx, LNJry, LNJrz] = [0,0,0];
+[SJRrx, SJRry, SJRrz] = [0,0,0];
+[SJLrx, SJLry, SJLrz] = [0,0,0];
+[EJRrx, EJRry, EJRrz] = [0,0,0];
+[HJLrx, HJLry, HJLrz] = [0,0,0];
+[EJLrx, EJLry, EJLrz] = [0,0,0];
+[HandJRrx, HandJRry, HandJRrz] = [0,0,0];
+[HandJLrx, HandJLry, HandJLrz] = [0,0,0];
+[HJRrx, HJRry, HJRrz] = [0,0,0];
+[KJRrx, KJRry, KJRrz] = [0,0,0];
+[HJLrx, HJLry, HJLrz] = [0,0,0];
+[AJRrx, AJRry, AJRrz] = [0,0,0];
+[AJLrx, AJLry, AJLrz] = [0,0,0];
+
+//----------------------------------------------------------------
+
 
 currentMode = Choice("Mode", execModes, 1); 
 
@@ -25,74 +89,73 @@ if(currentMode == 1)
 	
 	if(currentPart == 1) //FullBody
 	{
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0); 
+		orx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		ory = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		orz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0); 
 		//moveFullBody(rx, ry, rz);
 	}
 	
 	else if(currentPart == 2) //Abdomen
 	{
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		LLJrx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		LLJry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
 		//moveAbs(rx, ry, rz);
 	}
 	
 	else if(currentPart == 3) //Head
 	{
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		LNJrx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
+		LNJry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
 		//moveHead(rx, ry);
 	}
 	
 	else if(currentPart == 4) //Shoulder
 	{
 		side = sideOpts();
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
-		
 		if(side == 1) //left
 		{
-			//moveLeftShoulder(rx, ry, rz);
+			SJLrx = Slider("SJL X", minAngle, maxAngle, stepAngle, 0);
+			SJLry = Slider("SJL Y", minAngle, maxAngle, stepAngle, 0);
+			SJLrz = Slider("SJL Z", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
 			
-			//moveRightShoulder(rx, ry, rz);
+			SJRrx = Slider("SJR X", minAngle, maxAngle, stepAngle, 0);
+			SJRry = Slider("SJR Y", minAngle, maxAngle, stepAngle, 0);
+			SJRrz = Slider("SJR Z", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
 	else if(currentPart == 5) //Elbow
 	{
 		side = sideOpts();
-		rot = Slider("Rotation", minAngle, maxAngle, stepAngle, 0);
 
-		
 		if(side == 1) //left
 		{
-			//moveLeftElbow(rot);
+			EJL = Slider("EJL", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
-			//moveRightElbow(rot);
+			EJR = Slider("EJR", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
 	else if(currentPart == 6) //Hands
 	{
 		side = sideOpts();
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
 		
 		if(side == 1) //left
 		{
-			//moveLeftHand(rx, ry, rz);
+			HandJLrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
+			HandJLry = Slider("HandJR Y", minAngle, maxAngle, stepAngle, 0);
+			HandJLrz = Slider("HandJR Z", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
-			//moveRightHand(rx, ry, rz);
+			HandJRrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
+			HandJRry = Slider("HandJR Y", minAngle, maxAngle, stepAngle, 0);
+			HandJRrz = Slider("HandJR Z", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
@@ -147,11 +210,84 @@ if(currentMode == 1)
 	}
 	
 
-}
+}	
 else
 {
 	EnableAnimate(true);
 }
+//---------------------------DRAW HUMANOID-------------------------
+:IPNS;
+//------------------JOINTS
+//Core
+?LLJrx;
+LLJ = Joint(origin(2), [LLJrx,LLJry,LLJrz], [0,1.5,0]);
+:LLJ(3);
+
+//Neck
+LNJ = Joint(LLJ(2), [LNJrx,LNJry,LNJrz], [0,1,0]);
+:LNJ(3);
+
+//Shoulders
+SJR = Joint(LLJ(2), [SJRrx,SJRry,SJRrz], [0.5,0.8,0]);
+:SJR(3);
+
+SJL = Joint(LLJ(2), [SJLrx,SJLry,SJLrz], [-0.5,0.8,0]);
+:SJL(3);
+
+//Elbows
+EJR = Joint(SJR(2), [EJRrx,EJRry,EJRrz], [0.1,-0.5,0]);
+:EJR(3);
+
+EJL = Joint(SJL(2), [EJLrx,EJLry,EJLrz], [-0.1,-0.5,0]);
+:EJL(3);
+
+//Hands
+HandJR = Joint(EJR(2), [HandJRrx,HandJRry,HandJRrz], [0.1,-0.5,0]);
+:HandJR(3);
+
+HandJL = Joint(EJL(2), [HandJLrx,HandJLry,HandJLrz], [-0.1,-0.5,0]);
+:HandJL(3);
+
+//Hips
+HJR = Joint(LLJ(2), [HJRrx,HJRry,HJRrz], [0.3,-0.2,0]);
+:HJR(3);
+
+HJL = Joint(LLJ(2), [HJLrx,HJLry,HJLrz], [-0.3,-0.2,0]);
+:HJL(3);
+
+//Knees
+KJR = Joint(HJR(2), [KJRrx,KJRry,KJRrz], [-0.05,-0.6,0]);
+:KJR(3);
+
+[KJLrx, KJLry, KJLrz] = [0,0,0];
+KJL = Joint(HJL(2), [KJLrx,KJLry,KJLrz], [0.05,-0.6,0]);
+:KJL(3);
+
+//Ankles
+AJR = Joint(KJR(2), [AJRrx,AJRry,AJRrz], [-0.05,-0.6,0]);
+:AJR(3);
+
+AJL = Joint(KJL(2), [AJLrx,AJLry,AJLrz], [0.05,-0.6,0]);
+:AJL(3);
+
+//--------- CONNECTION
+ConnectJoints(LLJ, LNJ);
+ConnectJoints(LLJ, SJR);
+ConnectJoints(LLJ, SJL);
+ConnectJoints(SJR, SJL);
+ConnectJoints(LLJ, HJR);
+ConnectJoints(LLJ, HJL);
+ConnectJoints(HJR, HJL);
+ConnectJoints(HJR, KJR);
+ConnectJoints(HJL, KJL);
+ConnectJoints(KJL, AJL);
+ConnectJoints(KJR, AJR);
+ConnectJoints(SJR, EJR);
+ConnectJoints(SJL, EJL);
+ConnectJoints(EJR, HandJR);
+ConnectJoints(EJL, HandJL);
+
+//-----------------------------------------------------------------
  
 scInfo = StartOverlay();
 :White;
