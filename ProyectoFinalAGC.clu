@@ -88,7 +88,6 @@ stepAngle = 0.1;
 
 if(currentMode == 1)
 {
-	?currentPart = Choice("Body Part", bodyParts, 1);
 	
 	if(currentPart == 1) //FullBody
 	{
@@ -225,7 +224,6 @@ if(currentMode == 1)
 		}
 		
 	}
-	
 
 }	
 else
