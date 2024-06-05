@@ -55,9 +55,10 @@ ConnectJoints =
 
 	::Cylinder(J1(1), J2(1), 0.02);
 }
+
+
 //--------------------------VARIABLES-----------------------------
-[orx, ory, orz, otx, oty, otz] = [0,0,0,0,0,0];
-origin = Joint(1,[orx, ory, orz],[otx, oty, otz]);
+[FBrx, FBry, FBrz, otx, oty, otz] = [0,0,0,0,0,0];
 [LLJrx, LLJry, LLJrz] = [0,0,0];
 [LNJrx, LNJry, LNJrz] = [0,0,0];
 [SJRrx, SJRry, SJRrz] = [0,0,0];
@@ -69,9 +70,11 @@ origin = Joint(1,[orx, ory, orz],[otx, oty, otz]);
 [HandJLrx, HandJLry, HandJLrz] = [0,0,0];
 [HJRrx, HJRry, HJRrz] = [0,0,0];
 [KJRrx, KJRry, KJRrz] = [0,0,0];
+[KJLrx, KJLry, KJLrz] = [0,0,0];
 [HJLrx, HJLry, HJLrz] = [0,0,0];
 [AJRrx, AJRry, AJRrz] = [0,0,0];
 [AJLrx, AJLry, AJLrz] = [0,0,0];
+
 
 //----------------------------------------------------------------
 
@@ -89,23 +92,26 @@ if(currentMode == 1)
 	
 	if(currentPart == 1) //FullBody
 	{
-		orx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ory = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		orz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0); 
-		//moveFullBody(rx, ry, rz);
+		FBrx = Slider("FBrX", minAngle, maxAngle, stepAngle, 0);
+		FBry = Slider("FBrY", minAngle, maxAngle, stepAngle, 0);
+		FBrz = Slider("FBrZ", minAngle, maxAngle, stepAngle, 0);
+		otx = Slider("FBx", minAngle, maxAngle, stepAngle, 0);
+		oty = Slider("FBy", minAngle, maxAngle, stepAngle, 0);
+		otz = Slider("FBz", minAngle, maxAngle, stepAngle, 0);  
 	}
 	
 	else if(currentPart == 2) //Abdomen
 	{
-		LLJrx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		LLJry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		//moveAbs(rx, ry, rz);
+		LLJrx = Slider("LLJrx", minAngle, maxAngle, stepAngle, 0);
+		LLJry = Slider("LLJry", minAngle, maxAngle, stepAngle, 0);
+		LLJrz = Slider("LLJrz", minAngle, maxAngle, stepAngle, 0);
 	}
 	
 	else if(currentPart == 3) //Head
 	{
-		LNJrx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		LNJry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
+		LNJrx = Slider("LNJrx", minAngle, maxAngle, stepAngle, 0);
+		LNJry = Slider("LNJry", minAngle, maxAngle, stepAngle, 0);
+		LNJrz = Slider("LNJrz", minAngle, maxAngle, stepAngle, 0);
 		//moveHead(rx, ry);
 	}
 	
@@ -133,11 +139,15 @@ if(currentMode == 1)
 
 		if(side == 1) //left
 		{
-			EJL = Slider("EJL", minAngle, maxAngle, stepAngle, 0);
+			EJRrx = Slider("EJRrx", minAngle, maxAngle, stepAngle, 0);
+			EJRry = Slider("EJRry", minAngle, maxAngle, stepAngle, 0);
+			EJRrz = Slider("EJRrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
-			EJR = Slider("EJR", minAngle, maxAngle, stepAngle, 0);
+			EJLrx = Slider("EJLrx", minAngle, maxAngle, stepAngle, 0);
+			EJLry = Slider("EJLry", minAngle, maxAngle, stepAngle, 0);
+			EJLrz = Slider("EJLrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
@@ -162,49 +172,56 @@ if(currentMode == 1)
 	else if(currentPart == 7) //Hips
 	{
 		side = sideOpts();
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
+
 		
 		if(side == 1) //left
 		{
-			//moveLeftHips(rx, ry, rz);
+			HJLrx = Slider("HJLrx", minAngle, maxAngle, stepAngle, 0);
+			HJLry = Slider("HJLry", minAngle, maxAngle, stepAngle, 0);
+			HJLrz = Slider("HJLrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
-			//moveRightHip(rx, ry, rz);
+			HJRrx = Slider("HJRrx", minAngle, maxAngle, stepAngle, 0);
+			HJRry = Slider("HJRry", minAngle, maxAngle, stepAngle, 0);
+			HJRrz = Slider("HJRrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
 	else if(currentPart == 8) //Knees
 	{
 		side = sideOpts();
-		rot = Slider("Rot", minAngle, maxAngle, stepAngle, 0);
 		
 		if(side == 1) //left
 		{
-			//moveLeftKnee(rot);
+			KJLrx = Slider("KJLrx", minAngle, maxAngle, stepAngle, 0);
+			KJLry = Slider("KJLry", minAngle, maxAngle, stepAngle, 0);
+			KJLrz = Slider("KJLrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
-			//moveRigthKnee(rot);
+			KJRrx = Slider("KJLrx", minAngle, maxAngle, stepAngle, 0);
+			KJRry = Slider("KJLry", minAngle, maxAngle, stepAngle, 0);
+			KJRrz = Slider("KJLrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
 	else if(currentPart == 9) //Ankles
 	{
 		side = sideOpts();
-		rx = Slider("Rotation X", minAngle, maxAngle, stepAngle, 0);
-		ry = Slider("Rotation Y", minAngle, maxAngle, stepAngle, 0);
-		rz = Slider("Rotation Z", minAngle, maxAngle, stepAngle, 0);
+
 		
 		if(side == 1) //left
 		{
-			//moveLeftAnkle(rx, ry, rz);
+			AJRrx = Slider("AJRrx", minAngle, maxAngle, stepAngle, 0);
+			AJRry = Slider("AJRry", minAngle, maxAngle, stepAngle, 0);
+			AJRrz = Slider("AJRrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		else //right
 		{
-			//moveRightAnkle(rx, ry, rz);
+			AJLrx = Slider("AJLrx", minAngle, maxAngle, stepAngle, 0);
+			AJLry = Slider("AJLry", minAngle, maxAngle, stepAngle, 0);
+			AJLrz = Slider("AJLrz", minAngle, maxAngle, stepAngle, 0);
 		}
 		
 	}
@@ -218,9 +235,12 @@ else
 //---------------------------DRAW HUMANOID-------------------------
 :IPNS;
 //------------------JOINTS
+
+//Origin
+?FBrx;
+origin = Joint(1,[FBrx, FBry, FBrz],[otx, oty, otz]);
 //Core
-?LLJrx;
-LLJ = Joint(origin(2), [LLJrx,LLJry,LLJrz], [0,1.5,0]);
+LLJ = Joint(origin(2), [LLJrx,LLJry,LLJrz], [0,0,0]);
 :LLJ(3);
 
 //Neck
@@ -249,17 +269,16 @@ HandJL = Joint(EJL(2), [HandJLrx,HandJLry,HandJLrz], [-0.1,-0.5,0]);
 :HandJL(3);
 
 //Hips
-HJR = Joint(LLJ(2), [HJRrx,HJRry,HJRrz], [0.3,-0.2,0]);
+HJR = Joint(origin(2), [HJRrx,HJRry,HJRrz], [0.3,-0.2,0]);
 :HJR(3);
 
-HJL = Joint(LLJ(2), [HJLrx,HJLry,HJLrz], [-0.3,-0.2,0]);
+HJL = Joint(origin(2), [HJLrx,HJLry,HJLrz], [-0.3,-0.2,0]);
 :HJL(3);
 
 //Knees
 KJR = Joint(HJR(2), [KJRrx,KJRry,KJRrz], [-0.05,-0.6,0]);
 :KJR(3);
 
-[KJLrx, KJLry, KJLrz] = [0,0,0];
 KJL = Joint(HJL(2), [KJLrx,KJLry,KJLrz], [0.05,-0.6,0]);
 :KJL(3);
 
@@ -294,11 +313,11 @@ scInfo = StartOverlay();
 SetImagePos(1, 1, 0);
 SetImageAlign(0, 1);
 SetRenderTextSize(24);
-:GetRenderTextImage("Proyecto Final Algebra Geométrica Conformal");:MWhite;
+:GetRenderTextImage("Proyecto Final Algebra Geom?trica Conformal");:MWhite;
 SetImagePos(1, 100, 0);
 SetImageAlign(0, 0);
 SetRenderTextSize(15);
-:GetRenderTextImage("Braulio Ivan Solorio Gómez\nMiguel Herrera Padilla\nArturo García Brambila");
+:GetRenderTextImage("Braulio Ivan Solorio G?mez\nMiguel Herrera Padilla\nArturo Garc?a Brambila");
 EndOverlay();
 :scInfo;
 
