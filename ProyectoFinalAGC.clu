@@ -46,6 +46,24 @@ ConnectJoints =
 	::Cylinder(J1(1), J2(1), 0.02);
 }
 
+Cajita = {
+	E = einf^e0;
+	P = _P(1);
+	A = _P(2);
+	B = _P(3);
+	C = _P(4);
+	
+	Pxe = 2*((A-P)^E)*E;
+	Pye = 2*((B-P)^E)*E;
+	Pze = 2*((C-P)^E)*E;
+	
+	Px = Pxe + 0.5*(Pxe^^2)*einf+e0;
+	Py = Pye + 0.5*(Pye^^2)*einf+e0;
+	Pz = Pze + 0.5*(Pze^^2)*einf+e0;
+	
+	DrawBox(P, Px, Py, Pz);
+}
+
 
 //--------------------------VARIABLES-----------------------------
 [FBrx, FBry, FBrz, otx, oty, otz] = [0,0,0,0,0,0];
@@ -220,10 +238,19 @@ KJL = Joint(HJL(2), [KJLrx,KJLry,KJLrz], [0.05,-0.6,0]);
 
 //Ankles
 AJR = Joint(KJR(2), [AJRrx,AJRry,AJRrz], [-0.05,-0.6,0]);
-:AJR(3);
+
+Cajita(AJR(1),
+	Joint(AJR(2), [0,0,0], [0.1,0,0]),
+	Joint(AJR(2), [0,0,0], [0,0.1,0]), 
+	Joint(AJR(2), [0,0,0], [0,0,0.3]));
+
 
 AJL = Joint(KJL(2), [AJLrx,AJLry,AJLrz], [0.05,-0.6,0]);
-:AJL(3);
+
+Cajita(AJL(1),
+	Joint(AJL(2), [0,0,0], [0.1,0,0]),
+	Joint(AJL(2), [0,0,0], [0,0.1,0]), 
+	Joint(AJL(2), [0,0,0], [0,0,0.3]));
 
 //--------- CONNECTION
 ConnectJoints(LLJ, LNJ);
