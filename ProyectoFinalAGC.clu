@@ -140,9 +140,9 @@ if(currentMode == 1)
 		
 	//Hands
 		//left
-			HandJLrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
-			HandJLry = Slider("HandJR Y", minAngle, maxAngle, stepAngle, 0);
-			HandJLrz = Slider("HandJR Z", minAngle, maxAngle, stepAngle, 0);
+			HandJLrx = Slider("HandJL X", minAngle, maxAngle, stepAngle, 0);
+			HandJLry = Slider("HandJL Y", minAngle, maxAngle, stepAngle, 0);
+			HandJLrz = Slider("HandJL Z", minAngle, maxAngle, stepAngle, 0);
 	
 		//right
 			HandJRrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
@@ -198,8 +198,12 @@ LLJ = Joint(origin(2), [LLJrx,LLJry,LLJrz], [0,0,0]);
 :LLJ(3);
 
 //Neck
-LNJ = Joint(LLJ(2), [LNJrx,LNJry,LNJrz], [0,1,0]);
-:LNJ(3);
+LNJ = Joint(LLJ(2), [LNJrx,LNJry,LNJrz], [0,1.2,0]);
+
+Cajita(LNJ(1),
+	Joint(LNJ(2), [0,0,0], [0.2,0,0])(1),
+	Joint(LNJ(2), [0,0,0], [0,0.2,0])(1), 
+	Joint(LNJ(2), [0,0,0], [0,0,0.1])(1));
 
 //Shoulders
 SJR = Joint(LLJ(2), [SJRrx,SJRry,SJRrz], [0.5,0.8,0]);
@@ -217,10 +221,19 @@ EJL = Joint(SJL(2), [EJLrx,EJLry,EJLrz], [-0.1,-0.5,0]);
 
 //Hands
 HandJR = Joint(EJR(2), [HandJRrx,HandJRry,HandJRrz], [0.1,-0.5,0]);
-:HandJR(3);
+
+Cajita(HandJR(1),
+	Joint(HandJR(2), [0,0,0], [0.1,0,0])(1),
+	Joint(HandJR(2), [0,0,0], [0,0.1,0])(1), 
+	Joint(HandJR(2), [0,0,0], [0,0,0.07])(1));
+
 
 HandJL = Joint(EJL(2), [HandJLrx,HandJLry,HandJLrz], [-0.1,-0.5,0]);
-:HandJL(3);
+Cajita(HandJL(1),
+	Joint(HandJL(2), [0,0,0], [0.1,0,0])(1),
+	Joint(HandJL(2), [0,0,0], [0,0.1,0])(1), 
+	Joint(HandJL(2), [0,0,0], [0,0,0.07])(1));
+
 
 //Hips
 HJR = Joint(origin(2), [HJRrx,HJRry,HJRrz], [0.3,-0.2,0]);
@@ -240,17 +253,17 @@ KJL = Joint(HJL(2), [KJLrx,KJLry,KJLrz], [0.05,-0.6,0]);
 AJR = Joint(KJR(2), [AJRrx,AJRry,AJRrz], [-0.05,-0.6,0]);
 
 Cajita(AJR(1),
-	Joint(AJR(2), [0,0,0], [0.1,0,0]),
-	Joint(AJR(2), [0,0,0], [0,0.1,0]), 
-	Joint(AJR(2), [0,0,0], [0,0,0.3]));
+	Joint(AJR(2), [0,0,0], [0.1,0,0])(1),
+	Joint(AJR(2), [0,0,0], [0,0.1,0])(1), 
+	Joint(AJR(2), [0,0,0], [0,0,0.3])(1));
 
 
 AJL = Joint(KJL(2), [AJLrx,AJLry,AJLrz], [0.05,-0.6,0]);
 
 Cajita(AJL(1),
-	Joint(AJL(2), [0,0,0], [0.1,0,0]),
-	Joint(AJL(2), [0,0,0], [0,0.1,0]), 
-	Joint(AJL(2), [0,0,0], [0,0,0.3]));
+	Joint(AJL(2), [0,0,0], [0.1,0,0])(1),
+	Joint(AJL(2), [0,0,0], [0,0.1,0])(1), 
+	Joint(AJL(2), [0,0,0], [0,0,0.3])(1));
 
 //--------- CONNECTION
 ConnectJoints(LLJ, LNJ);
