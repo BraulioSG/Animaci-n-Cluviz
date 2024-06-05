@@ -1,16 +1,6 @@
 DefVarsN3();
 DrawFrame(0.5,"axes");
 execModes = ["Manual", "Animation"];
-bodyParts = ["full body","Abdomen", "Head", "Shoulder", "Elbow", "Hands", "Hips", "Knees", "Ankles"];
-
-sideOpts = 
-{
-
-	sides = ["left", "right"];
-	side = Choice("Side", sides, 1);
-	
-	side
-}
 
 
 Cylinder = 
@@ -89,141 +79,89 @@ stepAngle = 0.1;
 if(currentMode == 1)
 {
 	
-	if(currentPart == 1) //FullBody
-	{
+	
+	//FullBody
 		FBrx = Slider("FBrX", minAngle, maxAngle, stepAngle, 0);
 		FBry = Slider("FBrY", minAngle, maxAngle, stepAngle, 0);
 		FBrz = Slider("FBrZ", minAngle, maxAngle, stepAngle, 0);
 		otx = Slider("FBx", minAngle, maxAngle, stepAngle, 0);
 		oty = Slider("FBy", minAngle, maxAngle, stepAngle, 0);
 		otz = Slider("FBz", minAngle, maxAngle, stepAngle, 0);  
-	}
 	
-	else if(currentPart == 2) //Abdomen
-	{
+	//Abdomen
 		LLJrx = Slider("LLJrx", minAngle, maxAngle, stepAngle, 0);
 		LLJry = Slider("LLJry", minAngle, maxAngle, stepAngle, 0);
 		LLJrz = Slider("LLJrz", minAngle, maxAngle, stepAngle, 0);
-	}
 	
-	else if(currentPart == 3) //Head
-	{
+	//Head
 		LNJrx = Slider("LNJrx", minAngle, maxAngle, stepAngle, 0);
 		LNJry = Slider("LNJry", minAngle, maxAngle, stepAngle, 0);
 		LNJrz = Slider("LNJrz", minAngle, maxAngle, stepAngle, 0);
 		//moveHead(rx, ry);
-	}
 	
-	else if(currentPart == 4) //Shoulder
-	{
-		side = sideOpts();
-		if(side == 1) //left
-		{
+	//Shoulder
+		//left
 			SJLrx = Slider("SJL X", minAngle, maxAngle, stepAngle, 0);
 			SJLry = Slider("SJL Y", minAngle, maxAngle, stepAngle, 0);
 			SJLrz = Slider("SJL Z", minAngle, maxAngle, stepAngle, 0);
-		}
-		else //right
-		{
+		//right
 			
 			SJRrx = Slider("SJR X", minAngle, maxAngle, stepAngle, 0);
 			SJRry = Slider("SJR Y", minAngle, maxAngle, stepAngle, 0);
 			SJRrz = Slider("SJR Z", minAngle, maxAngle, stepAngle, 0);
-		}
 		
-	}
-	else if(currentPart == 5) //Elbow
-	{
-		side = sideOpts();
-
-		if(side == 1) //left
-		{
+	//Elbow
+		//left
 			EJRrx = Slider("EJRrx", minAngle, maxAngle, stepAngle, 0);
 			EJRry = Slider("EJRry", minAngle, maxAngle, stepAngle, 0);
 			EJRrz = Slider("EJRrz", minAngle, maxAngle, stepAngle, 0);
-		}
-		else //right
-		{
+		//right
 			EJLrx = Slider("EJLrx", minAngle, maxAngle, stepAngle, 0);
 			EJLry = Slider("EJLry", minAngle, maxAngle, stepAngle, 0);
 			EJLrz = Slider("EJLrz", minAngle, maxAngle, stepAngle, 0);
-		}
 		
-	}
-	else if(currentPart == 6) //Hands
-	{
-		side = sideOpts();
-		
-		if(side == 1) //left
-		{
+	//Hands
+		//left
 			HandJLrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
 			HandJLry = Slider("HandJR Y", minAngle, maxAngle, stepAngle, 0);
 			HandJLrz = Slider("HandJR Z", minAngle, maxAngle, stepAngle, 0);
-		}
-		else //right
-		{
+	
+		//right
 			HandJRrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
 			HandJRry = Slider("HandJR Y", minAngle, maxAngle, stepAngle, 0);
 			HandJRrz = Slider("HandJR Z", minAngle, maxAngle, stepAngle, 0);
-		}
 		
-	}
-	else if(currentPart == 7) //Hips
-	{
-		side = sideOpts();
-
-		
-		if(side == 1) //left
-		{
+	//Hips
+		//left
 			HJLrx = Slider("HJLrx", minAngle, maxAngle, stepAngle, 0);
 			HJLry = Slider("HJLry", minAngle, maxAngle, stepAngle, 0);
 			HJLrz = Slider("HJLrz", minAngle, maxAngle, stepAngle, 0);
-		}
-		else //right
-		{
+		//right
 			HJRrx = Slider("HJRrx", minAngle, maxAngle, stepAngle, 0);
 			HJRry = Slider("HJRry", minAngle, maxAngle, stepAngle, 0);
 			HJRrz = Slider("HJRrz", minAngle, maxAngle, stepAngle, 0);
-		}
 		
-	}
-	else if(currentPart == 8) //Knees
-	{
-		side = sideOpts();
+	//Knees
 		
-		if(side == 1) //left
-		{
+		//left
 			KJLrx = Slider("KJLrx", minAngle, maxAngle, stepAngle, 0);
 			KJLry = Slider("KJLry", minAngle, maxAngle, stepAngle, 0);
 			KJLrz = Slider("KJLrz", minAngle, maxAngle, stepAngle, 0);
-		}
-		else //right
-		{
-			KJRrx = Slider("KJLrx", minAngle, maxAngle, stepAngle, 0);
-			KJRry = Slider("KJLry", minAngle, maxAngle, stepAngle, 0);
-			KJRrz = Slider("KJLrz", minAngle, maxAngle, stepAngle, 0);
-		}
+		//right
+			KJRrx = Slider("KJRrx", minAngle, maxAngle, stepAngle, 0);
+			KJRry = Slider("KJRry", minAngle, maxAngle, stepAngle, 0);
+			KJRrz = Slider("KJRrz", minAngle, maxAngle, stepAngle, 0);
 		
-	}
-	else if(currentPart == 9) //Ankles
-	{
-		side = sideOpts();
+	//Ankles
 
-		
-		if(side == 1) //left
-		{
+		//left
 			AJRrx = Slider("AJRrx", minAngle, maxAngle, stepAngle, 0);
 			AJRry = Slider("AJRry", minAngle, maxAngle, stepAngle, 0);
 			AJRrz = Slider("AJRrz", minAngle, maxAngle, stepAngle, 0);
-		}
-		else //right
-		{
+		//right
 			AJLrx = Slider("AJLrx", minAngle, maxAngle, stepAngle, 0);
 			AJLry = Slider("AJLry", minAngle, maxAngle, stepAngle, 0);
 			AJLrz = Slider("AJLrz", minAngle, maxAngle, stepAngle, 0);
-		}
-		
-	}
 
 }	
 else
