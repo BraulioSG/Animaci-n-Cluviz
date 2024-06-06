@@ -1,0 +1,80 @@
+Cylinder = 
+{
+	A = _P(1); //Primera entrada (Punto inicial del cilindro)
+ 	B = _P(2); //Segunda entrada (Punto final del cilindro)
+ 	r = _P(3); //Tercera entrada (radio  del cilindro)
+ 
+ 	E = einf^e0; 	
+ 	Ae =  (A^E)*E;
+ 	Be = (B^E)*E;
+ 	Ce = Be - Ae;
+ 	C = Ce + 1/2*Ce^^2*einf + e0;
+ 
+	 DrawCylinder(A,C,r);
+ 	C;
+}
+Joint =
+{
+	:Yellow;
+	reference = _P(1); //motor referencia
+	[Jrx, Jry, Jrz] = _P(2); //arreglo de rotaciones
+	[Jtx, Jty, Jtz] = _P(3); //arreglo de transalciones
+	
+	T = TranslatorN3(Jtx, Jty, Jtz); 
+	M = T*RotorN3(1,0,0, Jrx)*RotorN3(0,1,0,Jry)*RotorN3(0,0,1,Jrz);
+	Mref = reference*M;
+	P = Mref*e0*(~Mref);  
+	
+	S = P - 0.5*(0.1^^2)*einf;
+	
+	[P, Mref, S]
+}
+
+ConnectJoints = 
+{
+	J1 = _P(1);
+	J2 = _P(2);
+	
+	
+	:White;
+
+	::Cylinder(J1(1), J2(1), 0.02);
+}
+
+Cajita = {
+	E = einf^e0;
+	P = _P(1);
+	A = _P(2);
+	B = _P(3);
+	C = _P(4);
+	
+	Pxe = 2*((A-P)^E)*E;
+	Pye = 2*((B-P)^E)*E;
+	Pze = 2*((C-P)^E)*E;
+	
+	Px = Pxe + 0.5*(Pxe^^2)*einf+e0;
+	Py = Pye + 0.5*(Pye^^2)*einf+e0;
+	Pz = Pze + 0.5*(Pze^^2)*einf+e0;
+	
+	DrawBox(P, Px, Py, Pz);
+}
+
+
+//--------------------------VARIABLES-----------------------------
+[FBrx, FBry, FBrz, otx, oty, otz] = [0,0,0,0,0,0];
+[LLJrx, LLJry, LLJrz] = [0,0,0];
+[LNJrx, LNJry, LNJrz] = [0,0,0];
+[SJRrx, SJRry, SJRrz] = [0,0,0];
+[SJLrx, SJLry, SJLrz] = [0,0,0];
+[EJRrx, EJRry, EJRrz] = [0,0,0];
+[HJLrx, HJLry, HJLrz] = [0,0,0];
+[EJLrx, EJLry, EJLrz] = [0,0,0];
+[HandJRrx, HandJRry, HandJRrz] = [0,0,0];
+[HandJLrx, HandJLry, HandJLrz] = [0,0,0];
+[HJRrx, HJRry, HJRrz] = [0,0,0];
+[KJRrx, KJRry, KJRrz] = [0,0,0];
+[KJLrx, KJLry, KJLrz] = [0,0,0];
+[HJLrx, HJLry, HJLrz] = [0,0,0];
+[AJRrx, AJRry, AJRrz] = [0,0,0];
+[AJLrx, AJLry, AJLrz] = [0,0,0];
+//-----------------------------------------------------------------

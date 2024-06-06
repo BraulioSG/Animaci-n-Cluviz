@@ -1,91 +1,8 @@
+//#include "Utils.clu"
+
 DefVarsN3();
 DrawFrame(0.5,"axes");
 execModes = ["Manual", "Animation"];
-
-
-Cylinder = 
-{
-	A = _P(1); //Primera entrada (Punto inicial del cilindro)
- 	B = _P(2); //Segunda entrada (Punto final del cilindro)
- 	r = _P(3); //Tercera entrada (radio  del cilindro)
- 
- 	E = einf^e0; 	
- 	Ae =  (A^E)*E;
- 	Be = (B^E)*E;
- 	Ce = Be - Ae;
- 	C = Ce + 1/2*Ce^^2*einf + e0;
- 
-	 DrawCylinder(A,C,r);
- 	C;
-}
-Joint =
-{
-	:Yellow;
-	reference = _P(1); //motor referencia
-	[Jrx, Jry, Jrz] = _P(2); //arreglo de rotaciones
-	[Jtx, Jty, Jtz] = _P(3); //arreglo de transalciones
-	
-	T = TranslatorN3(Jtx, Jty, Jtz); 
-	M = T*RotorN3(1,0,0, Jrx)*RotorN3(0,1,0,Jry)*RotorN3(0,0,1,Jrz);
-	Mref = reference*M;
-	P = Mref*e0*(~Mref);  
-	
-	S = P - 0.5*(0.1^^2)*einf;
-	
-	[P, Mref, S]
-}
-
-ConnectJoints = 
-{
-	J1 = _P(1);
-	J2 = _P(2);
-	
-	
-	:White;
-
-	::Cylinder(J1(1), J2(1), 0.02);
-}
-
-Cajita = {
-	E = einf^e0;
-	P = _P(1);
-	A = _P(2);
-	B = _P(3);
-	C = _P(4);
-	
-	Pxe = 2*((A-P)^E)*E;
-	Pye = 2*((B-P)^E)*E;
-	Pze = 2*((C-P)^E)*E;
-	
-	Px = Pxe + 0.5*(Pxe^^2)*einf+e0;
-	Py = Pye + 0.5*(Pye^^2)*einf+e0;
-	Pz = Pze + 0.5*(Pze^^2)*einf+e0;
-	
-	DrawBox(P, Px, Py, Pz);
-}
-
-
-//--------------------------VARIABLES-----------------------------
-[FBrx, FBry, FBrz, otx, oty, otz] = [0,0,0,0,0,0];
-[LLJrx, LLJry, LLJrz] = [0,0,0];
-[LNJrx, LNJry, LNJrz] = [0,0,0];
-[SJRrx, SJRry, SJRrz] = [0,0,0];
-[SJLrx, SJLry, SJLrz] = [0,0,0];
-[EJRrx, EJRry, EJRrz] = [0,0,0];
-[HJLrx, HJLry, HJLrz] = [0,0,0];
-[EJLrx, EJLry, EJLrz] = [0,0,0];
-[HandJRrx, HandJRry, HandJRrz] = [0,0,0];
-[HandJLrx, HandJLry, HandJLrz] = [0,0,0];
-[HJRrx, HJRry, HJRrz] = [0,0,0];
-[KJRrx, KJRry, KJRrz] = [0,0,0];
-[KJLrx, KJLry, KJLrz] = [0,0,0];
-[HJLrx, HJLry, HJLrz] = [0,0,0];
-[AJRrx, AJRry, AJRrz] = [0,0,0];
-[AJLrx, AJLry, AJLrz] = [0,0,0];
-
-
-//----------------------------------------------------------------
-
 
 currentMode = Choice("Mode", execModes, 1); 
 
@@ -115,7 +32,6 @@ if(currentMode == 1)
 		LNJrx = Slider("Head rx", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 		LNJry = Slider("Head ry", -0.5*Pi, 0.5*Pi, stepAngle, 0);
 		LNJrz = Slider("Head rz", -0.15*Pi, 0.15*Pi, stepAngle, 0);
-		//moveHead(rx, ry);
 	
 	//Shoulder
 		//left
@@ -132,20 +48,20 @@ if(currentMode == 1)
 		//left
 			EJRrx = Slider("Elbow Left rx", -Pi, 0, stepAngle, 0);
 			EJRry = Slider("Elbow Left ry", minAngle, maxAngle, stepAngle, 0);
-			EJRrz = Slider("Elbow Left rz", minAngle, maxAngle, stepAngle, 0);
+			EJRrz = Slider("Elbow Left rz", -0.5*Pi, 0.5*Pi, stepAngle, 0);
 		//right
 			EJLrx = Slider("Elbow Right rx", -Pi, 0, stepAngle, 0);
 			EJLry = Slider("Elbow Right ry", minAngle, maxAngle, stepAngle, 0);
-			EJLrz = Slider("Elbow Right rz", minAngle, maxAngle, stepAngle, 0);
+			EJLrz = Slider("Elbow Right rz", -0.5*Pi, 0.5*Pi, stepAngle, 0);
 		
 	//Hands
 		//left
-			HandJLrx = Slider("Hand Left rx", -0.5*Pi, 0.5*Pi, stepAngle, 0);
+			HandJLrx = Slider("Hand Left rx", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 			HandJLry = Slider("Hand Left ry", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 			HandJLrz = Slider("Hand Left rz", -0.2*Pi, 0.2*Pi, stepAngle, 0);
 	
 		//right
-			HandJRrx = Slider("Hand Right rx",  -0.5*Pi, 0.5*Pi, stepAngle, 0);
+			HandJRrx = Slider("Hand Right rx",  -0.3*Pi, 0.3*Pi, stepAngle, 0);
 			HandJRry = Slider("Hand Right ry", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 			HandJRrz = Slider("Hand Right rz", -0.2*Pi, 0.2*Pi, stepAngle, 0);
 		
@@ -162,11 +78,11 @@ if(currentMode == 1)
 	//Knees
 		
 		//left
-			KJLrx = Slider("Knees Left rx", -Pi, Pi, stepAngle, 0);
+			KJLrx = Slider("Knees Left rx", -0.1*Pi, Pi, stepAngle, 0);
 			KJLry = Slider("Knees Left ry", minAngle, maxAngle, stepAngle, 0);
 			KJLrz = Slider("Knees Left rz", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 		//right
-			KJRrx = Slider("Knees Right rx", -Pi, Pi, -stepAngle, 0);
+			KJRrx = Slider("Knees Right rx", -0.1*Pi, Pi, -stepAngle, 0);
 			KJRry = Slider("Knees Right ry", minAngle, maxAngle, stepAngle, 0);
 			KJRrz = Slider("Knees Right rz", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 		
@@ -185,13 +101,50 @@ if(currentMode == 1)
 else
 {
 	EnableAnimate(true);
+	D = ReadData("datos.dat");
+	N = Size(D);
+	t = round(250*Time,0)%(N-1) + 1;
+	
+	otx = D(t, 1);
+	oty = D(t, 2);
+	otz = D(t, 3);
+	FBrx = D(t, 4);
+	FBry = D(t, 5);
+	FBrz = D(t, 6);
+	LLJrx = D(t, 7);
+	LLJrz = D(t, 8);
+	LNJrx = D(t, 9);
+	LNJry = D(t, 10);
+	SJLrx = D(t, 11);
+	SJLry = D(t, 12);
+	SJLrz = D(t, 13);
+	EJLrx = D(t, 14);
+	SJRrx = D(t, 15);
+	SJRry = D(t, 16);
+	SJRrz = D(t, 17);
+	EJRrx = D(t, 18);
+	HJLrx = D(t, 19);
+	HJLry = D(t, 20);
+	HJLrz = D(t, 21);
+	KJLrx = D(t, 22);
+	AJLrx = D(t, 23);
+	AJLry = D(t, 24);
+	AJLrz = D(t, 25);
+	HJRrx = D(t, 26);
+	HJRry = D(t, 27);
+	HJRrz = D(t, 28);
+	KJRrx = D(t, 29);
+	AJRrx = D(t, 30);
+	AJRry = D(t, 31);
+	AJRrz = D(t, 32);
+	
+	
 }
 //---------------------------DRAW HUMANOID-------------------------
 :IPNS;
 //------------------JOINTS
 
 //Origin
-?FBrx;
 origin = Joint(1,[FBrx, FBry, FBrz],[otx, oty, otz]);
 //Core
 LLJ = Joint(origin(2), [LLJrx,LLJry,LLJrz], [0,0,0]);
