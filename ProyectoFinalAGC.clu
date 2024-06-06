@@ -99,87 +99,87 @@ if(currentMode == 1)
 	
 	
 	//FullBody
-		FBrx = Slider("FBrX", minAngle, maxAngle, stepAngle, 0);
-		FBry = Slider("FBrY", minAngle, maxAngle, stepAngle, 0);
-		FBrz = Slider("FBrZ", minAngle, maxAngle, stepAngle, 0);
-		otx = Slider("FBx", minAngle, maxAngle, stepAngle, 0);
-		oty = Slider("FBy", minAngle, maxAngle, stepAngle, 0);
-		otz = Slider("FBz", minAngle, maxAngle, stepAngle, 0);  
+		FBrx = Slider("FullBody rX", minAngle, maxAngle, stepAngle, 0);
+		FBry = Slider("FullBody rY", minAngle, maxAngle, stepAngle, 0);
+		FBrz = Slider("FullBody rZ", minAngle, maxAngle, stepAngle, 0);
+		otx = Slider("FullBody x", -5, 5, 0.1, 0);
+		oty = Slider("FullBody y", -5, 5, 0.1, 0);
+		otz = Slider("FullBody z", -5, 5, 0.1, 0);  
 	
 	//Abdomen
-		LLJrx = Slider("LLJrx", minAngle, maxAngle, stepAngle, 0);
-		LLJry = Slider("LLJry", minAngle, maxAngle, stepAngle, 0);
-		LLJrz = Slider("LLJrz", minAngle, maxAngle, stepAngle, 0);
+		LLJrx = Slider("Abdomen rx", -0.5*Pi, Pi, stepAngle, 0);
+		LLJry = Slider("Abdomen ry", -0.5*Pi, 0.5*Pi, stepAngle, 0);
+		LLJrz = Slider("Abdomen rz", -0.5*Pi, 0.5*Pi, stepAngle, 0);
 	
 	//Head
-		LNJrx = Slider("LNJrx", minAngle, maxAngle, stepAngle, 0);
-		LNJry = Slider("LNJry", minAngle, maxAngle, stepAngle, 0);
-		LNJrz = Slider("LNJrz", minAngle, maxAngle, stepAngle, 0);
+		LNJrx = Slider("Head rx", -0.3*Pi, 0.3*Pi, stepAngle, 0);
+		LNJry = Slider("Head ry", -0.5*Pi, 0.5*Pi, stepAngle, 0);
+		LNJrz = Slider("Head rz", -0.15*Pi, 0.15*Pi, stepAngle, 0);
 		//moveHead(rx, ry);
 	
 	//Shoulder
 		//left
-			SJLrx = Slider("SJL X", minAngle, maxAngle, stepAngle, 0);
-			SJLry = Slider("SJL Y", minAngle, maxAngle, stepAngle, 0);
-			SJLrz = Slider("SJL Z", minAngle, maxAngle, stepAngle, 0);
+			SJLrx = Slider("Shoulder Left rx", -Pi, Pi, stepAngle, 0);
+			SJLry = Slider("Shoulder Left ry", minAngle, maxAngle, stepAngle, 0);
+			SJLrz = Slider("Shoulder Left rz", -Pi, 0, stepAngle, 0);
 		//right
 			
-			SJRrx = Slider("SJR X", minAngle, maxAngle, stepAngle, 0);
-			SJRry = Slider("SJR Y", minAngle, maxAngle, stepAngle, 0);
-			SJRrz = Slider("SJR Z", minAngle, maxAngle, stepAngle, 0);
+			SJRrx = Slider("Shoulder Right rx", -Pi, Pi, stepAngle, 0);
+			SJRry = Slider("Shoulder Right ry", minAngle, maxAngle, stepAngle, 0);
+			SJRrz = Slider("Shoulder Right rz", 0, Pi, stepAngle, 0);
 		
 	//Elbow
 		//left
-			EJRrx = Slider("EJRrx", minAngle, maxAngle, stepAngle, 0);
-			EJRry = Slider("EJRry", minAngle, maxAngle, stepAngle, 0);
-			EJRrz = Slider("EJRrz", minAngle, maxAngle, stepAngle, 0);
+			EJRrx = Slider("Elbow Left rx", -Pi, 0, stepAngle, 0);
+			EJRry = Slider("Elbow Left ry", minAngle, maxAngle, stepAngle, 0);
+			EJRrz = Slider("Elbow Left rz", minAngle, maxAngle, stepAngle, 0);
 		//right
-			EJLrx = Slider("EJLrx", minAngle, maxAngle, stepAngle, 0);
-			EJLry = Slider("EJLry", minAngle, maxAngle, stepAngle, 0);
-			EJLrz = Slider("EJLrz", minAngle, maxAngle, stepAngle, 0);
+			EJLrx = Slider("Elbow Right rx", -Pi, 0, stepAngle, 0);
+			EJLry = Slider("Elbow Right ry", minAngle, maxAngle, stepAngle, 0);
+			EJLrz = Slider("Elbow Right rz", minAngle, maxAngle, stepAngle, 0);
 		
 	//Hands
 		//left
-			HandJLrx = Slider("HandJL X", minAngle, maxAngle, stepAngle, 0);
-			HandJLry = Slider("HandJL Y", minAngle, maxAngle, stepAngle, 0);
-			HandJLrz = Slider("HandJL Z", minAngle, maxAngle, stepAngle, 0);
+			HandJLrx = Slider("Hand Left rx", -0.5*Pi, 0.5*Pi, stepAngle, 0);
+			HandJLry = Slider("Hand Left ry", -0.3*Pi, 0.3*Pi, stepAngle, 0);
+			HandJLrz = Slider("Hand Left rz", -0.2*Pi, 0.2*Pi, stepAngle, 0);
 	
 		//right
-			HandJRrx = Slider("HandJR X", minAngle, maxAngle, stepAngle, 0);
-			HandJRry = Slider("HandJR Y", minAngle, maxAngle, stepAngle, 0);
-			HandJRrz = Slider("HandJR Z", minAngle, maxAngle, stepAngle, 0);
+			HandJRrx = Slider("Hand Right rx",  -0.5*Pi, 0.5*Pi, stepAngle, 0);
+			HandJRry = Slider("Hand Right ry", -0.3*Pi, 0.3*Pi, stepAngle, 0);
+			HandJRrz = Slider("Hand Right rz", -0.2*Pi, 0.2*Pi, stepAngle, 0);
 		
 	//Hips
 		//left
-			HJLrx = Slider("HJLrx", minAngle, maxAngle, stepAngle, 0);
-			HJLry = Slider("HJLry", minAngle, maxAngle, stepAngle, 0);
-			HJLrz = Slider("HJLrz", minAngle, maxAngle, stepAngle, 0);
+			HJLrx = Slider("Hips Left rx", -0.7*Pi, 0.7*Pi, stepAngle, 0);
+			HJLry = Slider("Hips Left ry", minAngle, maxAngle, stepAngle, 0);
+			HJLrz = Slider("Hips Left rz", -0.7*Pi, 0, stepAngle, 0);
 		//right
-			HJRrx = Slider("HJRrx", minAngle, maxAngle, stepAngle, 0);
-			HJRry = Slider("HJRry", minAngle, maxAngle, stepAngle, 0);
-			HJRrz = Slider("HJRrz", minAngle, maxAngle, stepAngle, 0);
+			HJRrx = Slider("Hips Right rx", -0.7*Pi, 0.7*Pi, stepAngle, 0);
+			HJRry = Slider("Hips Right ry", minAngle, maxAngle, stepAngle, 0);
+			HJRrz = Slider("Hips Right rz", 0, 0.7*Pi, stepAngle, 0);
 		
 	//Knees
 		
 		//left
-			KJLrx = Slider("KJLrx", minAngle, maxAngle, stepAngle, 0);
-			KJLry = Slider("KJLry", minAngle, maxAngle, stepAngle, 0);
-			KJLrz = Slider("KJLrz", minAngle, maxAngle, stepAngle, 0);
+			KJLrx = Slider("Knees Left rx", -Pi, Pi, stepAngle, 0);
+			KJLry = Slider("Knees Left ry", minAngle, maxAngle, stepAngle, 0);
+			KJLrz = Slider("Knees Left rz", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 		//right
-			KJRrx = Slider("KJRrx", minAngle, maxAngle, stepAngle, 0);
-			KJRry = Slider("KJRry", minAngle, maxAngle, stepAngle, 0);
-			KJRrz = Slider("KJRrz", minAngle, maxAngle, stepAngle, 0);
+			KJRrx = Slider("Knees Right rx", -Pi, Pi, -stepAngle, 0);
+			KJRry = Slider("Knees Right ry", minAngle, maxAngle, stepAngle, 0);
+			KJRrz = Slider("Knees Right rz", -0.3*Pi, 0.3*Pi, stepAngle, 0);
 		
 	//Ankles
 
 		//left
-			AJRrx = Slider("AJRrx", minAngle, maxAngle, stepAngle, 0);
-			AJRry = Slider("AJRry", minAngle, maxAngle, stepAngle, 0);
-			AJRrz = Slider("AJRrz", minAngle, maxAngle, stepAngle, 0);
+			AJRrx = Slider("Ankles Left rx",  -0.2*Pi, 0.3*Pi, stepAngle, 0);
+			AJRry = Slider("Ankles Left ry", -0.3*Pi, 0.3*Pi, stepAngle, 0);
+			AJRrz = Slider("Ankles Left rz", -0.2*Pi, 0.2*Pi, stepAngle, 0);
 		//right
-			AJLrx = Slider("AJLrx", minAngle, maxAngle, stepAngle, 0);
-			AJLry = Slider("AJLry", minAngle, maxAngle, stepAngle, 0);
-			AJLrz = Slider("AJLrz", minAngle, maxAngle, stepAngle, 0);
+			AJLrx = Slider("Ankles Right rx",  -0.2*Pi, 0.3*Pi, stepAngle, 0);
+			AJLry = Slider("Ankles Right ry", -0.3*Pi, 0.3*Pi, stepAngle, 0);
+			AJLrz = Slider("Ankles Right rz", -0.2*Pi, 0.2*Pi, stepAngle, 0);
 
 }	
 else
